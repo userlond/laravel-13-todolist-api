@@ -1,0 +1,21 @@
+info:
+  name: Update
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{process.env.APP_URL}}/api/tasks/1"
+  body:
+    type: json
+    data: |-
+      {
+        "title": ""
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
