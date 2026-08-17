@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $user_id
  * @property string $title
  * @property string $description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $creator
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $creator
+ *
  * @method static Builder<static>|Task newModelQuery()
  * @method static Builder<static>|Task newQuery()
  * @method static Builder<static>|Task query()
@@ -24,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder<static>|Task whereTitle($value)
  * @method static Builder<static>|Task whereUpdatedAt($value)
  * @method static Builder<static>|Task whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 #[Fillable(['title', 'description'])]
@@ -39,5 +42,10 @@ class Task extends Model
         static::addGlobalScope('author', function (Builder $builder) {
             $builder->where('user_id', auth()->id());
         });
+    }
+
+    public function scopeCreatedBetween(Builder $query, string $fromDate, string $toDate)
+    {
+        $query->where('created_at', '>=', $fromDate)->where('created_at', '<=', $toDate);
     }
 }

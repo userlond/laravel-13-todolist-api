@@ -5,7 +5,14 @@ info:
 
 http:
   method: GET
-  url: "{{process.env.APP_URL}}/api/tasks"
+  url: "{{process.env.APP_URL}}/api/tasks?filter[description]=description&sort=-title"
+  params:
+    - name: filter[description]
+      value: description
+      type: query
+    - name: sort
+      value: -title
+      type: query
   auth: inherit
 
 settings:

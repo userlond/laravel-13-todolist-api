@@ -9,12 +9,31 @@ use App\Http\Resources\TaskResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
     public function index(Request $request)
     {
-        return new TaskCollection(Task::paginate());
+        $allowedFilters = [
+            AllowedFilter::partial('title'),
+            AllowedFilter::partial('description'),
+            AllowedFilter::scope('created_between'),
+        ];
+
+        $allowedSorts = [
+            'title',
+            'created_at',
+        ];
+
+        $tasks = QueryBuilder::for(Task::class)
+            ->allowedFilters(...$allowedFilters)
+            ->defaultSort('-created_at')
+            ->allowedSorts(...$allowedSorts)
+            ->paginate();
+
+        return new TaskCollection($tasks);
     }
 
     public function show(Request $request, Task $task)
