@@ -5,10 +5,10 @@ info:
 
 http:
   method: GET
-  url: "{{process.env.APP_URL}}/api/tasks?filter[description]=description&sort=-title"
+  url: "{{process.env.APP_URL}}/api/tasks?filter[is_done]=1&sort=-title"
   params:
-    - name: filter[description]
-      value: description
+    - name: filter[is_done]
+      value: "1"
       type: query
     - name: sort
       value: -title

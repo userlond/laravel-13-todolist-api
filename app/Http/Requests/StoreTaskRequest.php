@@ -25,6 +25,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'string|max:1000',
+            'is_done' => 'boolean',
         ];
     }
 }

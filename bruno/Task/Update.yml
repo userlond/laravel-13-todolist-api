@@ -10,7 +10,8 @@ http:
     type: json
     data: |-
       {
-        "title": ""
+        "title": "Task 1 edit",
+        "is_done": true
       }
   auth: inherit
 

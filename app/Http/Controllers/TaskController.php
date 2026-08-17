@@ -17,6 +17,7 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $allowedFilters = [
+            'is_done',
             AllowedFilter::partial('title'),
             AllowedFilter::partial('description'),
             AllowedFilter::scope('created_between'),
@@ -25,6 +26,7 @@ class TaskController extends Controller
         $allowedSorts = [
             'title',
             'created_at',
+            'is_done',
         ];
 
         $tasks = QueryBuilder::for(Task::class)
