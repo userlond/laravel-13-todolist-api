@@ -29,11 +29,15 @@ class TaskController extends Controller
             'is_done',
         ];
 
+        $perPage = (int) $request->query('per_page', 15);
+
         $tasks = QueryBuilder::for(Task::class)
             ->allowedFilters(...$allowedFilters)
             ->defaultSort('-created_at')
             ->allowedSorts(...$allowedSorts)
-            ->paginate();
+            ->paginate(
+                perPage: $perPage
+            );
 
         return new TaskCollection($tasks);
     }
