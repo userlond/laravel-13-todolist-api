@@ -24,6 +24,7 @@ class TaskController extends Controller
         ];
 
         $allowedSorts = [
+            'id',
             'title',
             'created_at',
             'is_done',
