@@ -51,7 +51,14 @@ git clone https://github.com/userlond/laravel-13-todolist-api.git
 cd laravel-13-todolist-api
 ```
 
-2. **Start the container**
+2 **Configure Environment Variables**
+Create a .env file in the root directory by copying the .env.example file:
+
+```bash
+cp .env.example .env
+```
+
+3 **Start the container**
 
 ```bash
 docker compose -f compose.prod.yaml up -d --build
