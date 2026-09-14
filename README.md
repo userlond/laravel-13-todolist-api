@@ -1,58 +1,160 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📝 Laravel 13 TodoList API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?style=for-the-badge&logo=laravel)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.5-777BB4?style=for-the-badge&logo=php)](https://www.php.net)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-## About Laravel
+> 🎓 **Educational Pet Project**  
+> This repository is a project created to demonstrate modern API development practices using **Laravel 13**. It serves
+> as a sandbox for exploring RESTful architecture, authentication, database migrations, form validation, package the app
+> via Docker.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **RESTful API Design**: Clean, resourceful routing for managing Tasks.
+- **Authentication**: Secure token-based authentication using **Laravel Sanctum**.
+- **Modern PHP**: Built with PHP 8.5 utilizing typed properties, attributes, and modern syntax.
+- **Data Transformation**: Uses **API Resources** to ensure consistent and secure JSON responses.
+- **Robust Validation**: Custom **Form Requests** to handle input validation and authorization.
+- **Database**: Data is stored in relational MySQL database
+- **Testing**: **Bruno** collections included for manual testing.
+- **Packaging**: Dev (local development) and production (optimised for performances) Docker containers.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Tech Stack
 
-## Learning Laravel
+- **Framework**: Laravel 13
+- **Language**: PHP 8.5
+- **Database**: MySQL
+- **Authentication**: Laravel Sanctum
+- **Testing**: Collection for Bruno Api client
+- **Containers**: Both dev and prod Docker containers.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Getting Started
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Follow these instructions to get a local copy of the project up and running.
 
-## Agentic Development
+### Prerequisites
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Make sure you have the following installed on your machine:
+
+- Linux OS (Ubuntu/Fedora etc.) recommended
+- [Docker](https://www.docker.com)
+
+### Installation
+
+1. **Clone the repository**
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/userlond/laravel-13-todolist-api.git
+cd laravel-13-todolist-api
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+2. **Start the container**
 
-## Contributing
+```bash
+docker compose -f compose.prod.yaml up -d --build
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# API Specification
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🔐 Auth
 
-## Security Vulnerabilities
+### `POST` `/api/login`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Summary:** Login  
+**Content-Type:** `application/json`
 
-## License
+**Request Body:**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+| Field      | Type   | Required | Example            |
+|------------|--------|----------|--------------------|
+| `email`    | string | Yes      | `test@example.com` |
+| `password` | string | Yes      | `password`         |
+
+---
+
+### `POST` `/api/register`
+
+**Summary:** Register  
+**Content-Type:** `application/json`
+
+**Request Body:**
+
+| Field      | Type   | Required | Example        |
+|------------|--------|----------|----------------|
+| `name`     | string | Yes      | `John Doe`     |
+| `email`    | string | Yes      | `john@doe.com` |
+| `password` | string | Yes      | `password`     |
+
+---
+
+## 👤 User
+
+### `GET` `/api/user`
+
+**Summary:** User Info
+
+---
+
+## 📋 Task
+
+### `GET` `/api/tasks`
+
+**Summary:** Index (List tasks)
+
+**Query Parameters:**
+
+| Parameter         | Type            | Required | Example           | Description                                                                        |
+|-------------------|-----------------|----------|-------------------|------------------------------------------------------------------------------------|
+| `filter[<field>]` | integer (int32) | No       | `filter[is_done]` | Filter by task param: is_done, title, description, created_between                 |
+| `sort`            | string          | No       | `-title`          | Sort order (use`-` for descending), allowed fields: id, title, created_at, is_done |
+
+---
+
+### `POST` `/api/tasks`
+
+**Summary:** Store (Create a new task)  
+**Content-Type:** `application/json`
+
+**Request Body:**
+
+| Field         | Type    | Required | Example         |
+|---------------|---------|----------|-----------------|
+| `title`       | string  | Yes      | `Task 2`        |
+| `description` | string  | No       | `Description 2` |
+| `is_done`     | boolean | No       | `true`          |
+
+**Responses:**
+
+- `200 OK`
+
+---
+
+### `GET` `/api/tasks/{id}`
+
+**Summary:** Show (Get a specific task)
+
+---
+
+### `PUT` `/api/tasks/{id}`
+
+**Summary:** Update (Modify an existing task)  
+**Content-Type:** `application/json`
+
+**Request Body:**
+
+| Field         | Type    | Required | Example                 |
+|---------------|---------|----------|-------------------------|
+| `title`       | string  | Yes      | `Task 1 edit`           |
+| `description` | string  | No       | `Task description edit` |
+| `is_done`     | boolean | No       | `true`                  |
+
+---
+
+### `DELETE` `/api/tasks/{id}`
+
+**Summary:** Destroy (Delete a task)
